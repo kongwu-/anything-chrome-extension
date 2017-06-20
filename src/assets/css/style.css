@@ -1,0 +1,100 @@
+body {
+  height: 100%;
+  font-family: Microsoft YaHei
+}
+
+body, li, ul {
+  padding: 0;
+  margin: 0
+}
+
+li, ul {
+  list-style: none
+}
+
+.el-pagination {
+  float: right
+}
+
+.toolbar {
+  background: #eaeef3;
+  padding: 10px 10px 0;
+  overflow: hidden
+}
+
+.toolbar.foot {
+  padding: 10px
+}
+
+.view-title {
+  font-size: 16px;
+  color: #1f2f3d;
+  font-weight: 400;
+  margin-top: 0
+}
+
+.el-breadcrumb {
+  padding: 20px 0;
+  border-bottom: 1px solid #edf0f2;
+  margin-bottom: 20px
+}
+
+.form-wrap {
+  width: 640px
+}
+
+.view-gap {
+  margin-bottom: 15px
+}
+
+.preview-thumbnails {
+  cursor: pointer
+}
+
+.preview-large {
+  width: 500px;
+  height: 500px;
+  margin: auto;
+  display: block
+}
+.wrap {
+  width: 100%;
+  height: 100%
+}
+
+.image-list {
+  overflow: hidden
+}
+
+.image-list img {
+  height: 104px;
+  object-fit: contain
+}
+
+#app, body, html {
+  height: 100%
+}
+
+body {
+  background: #eee;
+  position: relative
+}
+
+.layout {
+  border: 1px solid #d7dde4;
+  background: #fff;
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  bottom: 50px;
+  left: 50px;
+  overflow: auto
+}
+
+.toolbox {
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
+  padding: 15px
+}
