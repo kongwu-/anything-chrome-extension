@@ -1,13 +1,123 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>傻瓜工具箱</title>
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-  </head>
-  <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+<head>
+    <meta charset=utf-8>
+    <title>傻闺女工具箱</title>
+    <link rel=icon href=favicon.ico type=image/x-icon>
+    <link rel="shortcut icon" href=favicon.ico type=image/x-icon>
+    <link href="static/index.css" rel=stylesheet>
+    <link href="static/style.css" rel=stylesheet>
+</head>
+<body>
+<div id="app">
+    <div class="layout">
+        <div class="wrap" v-loading="loading" element-loading-text="越着急越慢越容易出错，等会就好~">
+            <div class="toolbox">
+                <el-date-picker
+      v-model="dateRange"
+      type="daterange"
+      align="right"
+      unlink-panels
+      range-separator="至"
+      start-placeholder="开始日期"
+      end-placeholder="结束日期"
+      :picker-options="pickerOptions"
+      :clearable="false"
+      @change="loadData">
+    </el-date-picker>
+                <div style="display:inline-block;vertical-align: middle;margin-top:-2px;margin-left:10px;"><el-radio-group v-model="switchEmpty" @change="filterEmpty" :disabled="allData.length==0">
+      <el-radio-button :label="false">默认</el-radio-button>
+      <el-radio-button :label="true">过滤</el-radio-button>
+  </el-radio-group>
+  <el-radio-group v-model="switchDetail" :disabled="allData.length==0">
+      <el-radio-button :label="false">基本</el-radio-button>
+      <el-radio-button :label="true">详情</el-radio-button>
+  </el-radio-group></div>
+                <el-button type="danger" style="float:right;" @click="exportData" :loading="exportLoading" icon="el-icon-download" :disabled="dataList.length==0">导出</el-button>
+            </div>
+            <el-table
+                    :data="dataList"
+                    stripe
+                    style="width: 100%">
+                <el-table-column
+                        prop="plan"
+                        label="所在计划">
+                </el-table-column>
+                <el-table-column
+                        sortable
+                        prop="ad"
+                        label="广告">
+                </el-table-column>
+                <el-table-column
+                        prop="title"
+                        label="标题"
+                        v-if="switchDetail">
+                </el-table-column>
+                <el-table-column
+                        prop="images"
+                        label="图片"
+                        width="450"
+                        v-if="switchDetail">
+                    <template scope="scope">
+                        <div class="image-list">
+                            <img :src="img" v-for="img in scope.row.images"/>
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        sortable
+                        prop="date"
+                        label="日期">
+                </el-table-column>
+                <el-table-column
+                        sortable
+                        prop="downloadCount"
+                        label="下载量">
+                </el-table-column>
+                <el-table-column
+                        sortable
+                        prop="showCount"
+                        label="曝光量">
+                </el-table-column>
+                <el-table-column
+                        sortable
+                        prop="clickCount"
+                        label="点击量">
+                </el-table-column>
+                <el-table-column
+                        sortable
+                        prop="clickRate"
+                        label="点击率（%）">
+                </el-table-column>
+                <el-table-column
+                        sortable
+                        prop="clickPrice"
+                        label="点击均价（￥）">
+                </el-table-column>
+                <el-table-column
+                        sortable
+                        prop="spent"
+                        label="花费（￥）">
+                </el-table-column>
+            </el-table>
+            <div class="block">
+                <el-pagination
+                        layout="prev, pager, next"
+                        :total="total"
+                        :page-size="pageSize"
+                        :current-page="currentPage"
+                        @current-change="page">
+                </el-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="static/vue.js"></script>
+<script type="text/javascript" src="static/index.js"></script>
+<script type="text/javascript" src="static/axios.min.js"></script>
+<script type="text/javascript" src="static/api.js"></script>
+<script type="text/javascript" src="static/lib.js"></script>
+<script type="text/javascript" src="static/moment.js"></script>
+<script type="text/javascript" src="app.js"></script>
+</body>
 </html>
