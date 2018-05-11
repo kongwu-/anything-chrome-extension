@@ -1,5 +1,27 @@
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+chrome.webRequest.onBeforeSendHeaders.addListener(
+    function(details) {
+      console.debug(details);
+        if (details.type === 'xmlhttprequest') {
+            var exists = false;
+            for (var i = 0; i < details.requestHeaders.length; ++i) {
+                if (details.requestHeaders[i].name === 'Referer') {
+                    exists = true;
+                    details.requestHeaders[i].value = 'https://e.vivo.com.cn/';
+                    break;
+                }
+            }
 
+            if (!exists) {
+             details.requestHeaders.push({ name: 'Referer', value: 'https://e.vivo.com.cn/'});
+            }
+
+            return { requestHeaders: details.requestHeaders };
+        }
+    },
+    {urls: ['https://e.vivo.com.cn/*']},
+    ["blocking", "requestHeaders"]
+);
 new Vue({
     el: '#app',
     data(){
@@ -141,7 +163,8 @@ new Vue({
             let startDate = vm.dateRange[0].format("yyyy-MM-dd");
             let endDate = vm.dateRange[1].format("yyyy-MM-dd");
             let planParams = new URLSearchParams();
-            planParams.append('param','{"startDate":"'+startDate+'","endDate":"'+endDate+'","status":"0","page":1,"size":1000,"pageIndex":1,"pageSize":1000}');
+            // planParams.append('param','{"scope":"'+"today"+'","startDate":"'+startDate+'","endDate":"'+endDate+'","status":"0","page":1,"size":1000,"pageIndex":1,"pageSize":1000}');
+            planParams.append('param','{"startDate":"2018-05-11","endDate":"2018-05-11","status":"0","page":1,"size":10,"scope":"today","pageIndex":1,"pageSize":10}');
             axios.post(Api.planList, planParams).then(function (res) {
                 let value = res.object;
                 if (1 == res.code) {
